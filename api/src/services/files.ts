@@ -89,6 +89,10 @@ export class FilesService extends ItemsService<File> {
 			}
 		}
 
+		if (!payload.type) {
+			payload.type = 'application/octet-stream';
+		}
+
 		// Is this file a replacement? if the file data already exists and we have a primary key
 		const isReplacement = existingFile !== null && primaryKey !== undefined;
 
@@ -112,10 +116,6 @@ export class FilesService extends ItemsService<File> {
 
 		// Temp filename is used for replacements
 		const tempFilenameDisk = 'temp_' + filenameDisk;
-
-		if (!payload.type) {
-			payload.type = 'application/octet-stream';
-		}
 
 		// Used to clean up if something goes wrong
 		const cleanUp = async () => {
